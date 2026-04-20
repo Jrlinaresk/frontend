@@ -14,6 +14,8 @@ services:
       - excalapp-prod
 
   tunnel:
+    profiles:
+      - tunnel
     container_name: excalapp-frontend-tunnel
     image: cloudflare/cloudflared:latest
     restart: unless-stopped

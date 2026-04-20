@@ -74,3 +74,24 @@ El frontend quedó preparado para desplegarse bajo Docker y publicarse detrás d
 3. Crear un public hostname en Cloudflare Tunnel apuntando al servicio interno `http://frontend:80`.
 4. Guardar el token del tunnel como secret en GitHub.
 5. Hacer push a `main`.
+
+### Ver la web ahora mismo
+
+- En el VPS o en tu red local: `http://192.168.1.19:8088`
+- En producción pública: `https://class.excalapp.com`
+
+### Arranque local de producción
+
+Si quieres verla ya sin tunnel, ejecuta:
+
+```bash
+docker compose -f docker-compose.prod.yml up -d --build
+```
+
+Eso levanta solo el frontend y te deja la app disponible en el puerto `8088`.
+
+Si ya tienes el tunnel listo y quieres publicar el subdominio:
+
+```bash
+docker compose -f docker-compose.prod.yml --profile tunnel up -d --build
+```
