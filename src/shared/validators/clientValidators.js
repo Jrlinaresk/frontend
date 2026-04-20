@@ -1,5 +1,3 @@
-const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
 export const validateClientFilters = ({ identification, name }) => {
   const errors = {};
   if (identification && identification.trim().length > 20) {
@@ -26,7 +24,6 @@ export const validateClientForm = (values) => {
   if (required(values.address)) errors.address = 'La dirección es obligatoria.';
   if (required(values.reseña)) errors.reseña = 'La reseña personal es obligatoria.';
   if (required(values.interestId)) errors.interestId = 'Debes seleccionar un interés.';
-  if (values.email && !EMAIL_PATTERN.test(values.email)) errors.email = 'Ingresa un correo válido.';
 
   if (values.identification && values.identification.length > 20) {
     errors.identification = 'Máximo 20 caracteres.';
@@ -37,6 +34,5 @@ export const validateClientForm = (values) => {
   if (values.otherPhone && values.otherPhone.length > 20) errors.otherPhone = 'Máximo 20 caracteres.';
   if (values.address && values.address.length > 200) errors.address = 'Máximo 200 caracteres.';
   if (values.reseña && values.reseña.length > 200) errors.reseña = 'Máximo 200 caracteres.';
-
   return errors;
 };

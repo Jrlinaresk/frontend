@@ -8,6 +8,7 @@ import { APP_ROUTES } from '../../../shared/enums/routes';
 import { register as registerRequest } from '../services/authService';
 import { useFeedback } from '../../../core/feedback/FeedbackContext';
 import { normalizeApiError } from '../../../core/api/errorNormalizer';
+import { APP_TEXT } from '../../../shared/constants/messages';
 
 export const RegisterPage = () => {
   const navigate = useNavigate();
@@ -32,7 +33,7 @@ export const RegisterPage = () => {
       <Stack spacing={3}>
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
           <Typography variant="h5" fontWeight={800} sx={{ letterSpacing: 1 }}>
-            COMPANIA PRUEBA
+            {APP_TEXT.COMPANY_NAME}
           </Typography>
         </Box>
         <RegisterForm onSubmit={handleSubmit} loading={loading} />

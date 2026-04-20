@@ -14,7 +14,7 @@ export const AuthLayout = ({ children }) => (
     }}
   >
     <Container maxWidth="sm">
-      <Paper elevation={4} sx={{ p: { xs: 3, sm: 5 }, borderRadius: 4 }}>
+      <Paper elevation={4} sx={{ p: { xs: 3, sm: 5 } }}>
         {children}
       </Paper>
     </Container>

@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Alert, Stack } from '@mui/material';
+import { Alert, Avatar, Stack } from '@mui/material';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import PersonIcon from '@mui/icons-material/Person';
+import SaveIcon from '@mui/icons-material/Save';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import { DashboardLayout } from '../../../design-system/templates/DashboardLayout';
@@ -15,6 +18,7 @@ import { validateClientForm } from '../../../shared/validators/clientValidators'
 import { createClient, getClientById, getInterests, updateClient } from '../services/clientService';
 import { normalizeApiError } from '../../../core/api/errorNormalizer';
 import { fileToBase64 } from '../../../shared/utils/file';
+import { buildClientDetails } from '../../../shared/mappers/clientMappers';
 
 const emptyValues = {
   id: '',
@@ -32,6 +36,15 @@ const emptyValues = {
   imagePreview: '',
   imageFile: null,
   interestId: '',
+};
+
+const normalizeFormValues = (source = {}) => {
+  const normalized = buildClientDetails(source);
+  return {
+    ...emptyValues,
+    ...normalized,
+    imagePreview: normalized.imageBase64 ? `data:image/*;base64,${normalized.imageBase64}` : '',
+  };
 };
 
 export const ClientMaintenancePage = () => {
@@ -73,12 +86,7 @@ export const ClientMaintenancePage = () => {
         if (!active) return;
         setInterests(interestList);
         if (isEditMode) {
-          const source = clientDetails || location.state || {};
-          setValues({
-            ...emptyValues,
-            ...source,
-            imagePreview: source.imageBase64 ? `data:image/*;base64,${source.imageBase64}` : '',
-          });
+          setValues(normalizeFormValues(clientDetails || location.state || {}));
         }
       } catch (apiError) {
         if (!active) return;
@@ -105,13 +113,17 @@ export const ClientMaintenancePage = () => {
         return;
       }
 
-      const imageBase64 = await fileToBase64(value);
-      setValues((current) => ({
-        ...current,
-        imageFile: value,
-        imageBase64,
-        imagePreview: `data:${value.type};base64,${imageBase64}`,
-      }));
+      try {
+        const imageBase64 = await fileToBase64(value);
+        setValues((current) => ({
+          ...current,
+          imageFile: value,
+          imageBase64,
+          imagePreview: `data:${value.type};base64,${imageBase64}`,
+        }));
+      } catch (error) {
+        feedback.showError(normalizeApiError(error));
+      }
       return;
     }
 
@@ -137,14 +149,50 @@ export const ClientMaintenancePage = () => {
     }
   };
 
+  const headerAvatar = (
+    <Avatar
+      src={values.imagePreview || undefined}
+      alt={values.firstName ? `${values.firstName} ${values.lastName}` : APP_TEXT.CLIENT_MAINTENANCE_TITLE}
+      sx={{
+        width: 56,
+        height: 56,
+        bgcolor: values.imagePreview ? 'background.paper' : 'grey.100',
+        color: 'text.secondary',
+        border: '1px solid',
+        borderColor: 'divider',
+        flexShrink: 0,
+        '& .MuiAvatar-img': {
+          objectFit: 'cover',
+        },
+      }}
+    >
+      <PersonIcon sx={{ fontSize: 30 }} />
+    </Avatar>
+  );
+
   return (
     <DashboardLayout username={session.username} onLogout={session.logout}>
       <PageHeader
+        leading={headerAvatar}
         title={APP_TEXT.CLIENT_MAINTENANCE_TITLE}
         subtitle={PAGE_HINTS.CLIENTS_MAINTENANCE}
         actions={
           <Stack direction="row" spacing={1.5}>
-            <AppButton onClick={() => navigate(APP_ROUTES.CLIENTS)}>{APP_TEXT.BACK}</AppButton>
+            <AppButton
+              type="submit"
+              form="client-maintenance-form"
+              startIcon={<SaveIcon />}
+              disabled={saving}
+            >
+              {APP_TEXT.SAVE}
+            </AppButton>
+            <AppButton
+              variant="outlined"
+              startIcon={<ArrowBackIcon />}
+              onClick={() => navigate(APP_ROUTES.CLIENTS)}
+            >
+              {APP_TEXT.BACK}
+            </AppButton>
           </Stack>
         }
       />
@@ -153,14 +201,13 @@ export const ClientMaintenancePage = () => {
       {!loading && pageError ? <Alert severity="error">{pageError}</Alert> : null}
       {!loading && !pageError ? (
         <ClientForm
+          formId="client-maintenance-form"
           values={values}
           errors={errors}
           interests={interests}
           loadingInterests={loadingInterests}
           onChange={handleChange}
           onSubmit={handleSubmit}
-          onBack={() => navigate(APP_ROUTES.CLIENTS)}
-          saving={saving}
         />
       ) : null}
     </DashboardLayout>

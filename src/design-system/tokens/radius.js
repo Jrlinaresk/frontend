@@ -1,7 +1,7 @@
 export const RADIUS = Object.freeze({
   sm: 8,
-  md: 12,
-  lg: 16,
-  xl: 24,
-  pill: 999,
+  md: 8,
+  lg: 8,
+  xl: 8,
+  pill: 8,
 });

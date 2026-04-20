@@ -44,7 +44,7 @@ export const LoginPage = () => {
       <Stack spacing={3}>
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
           <Typography variant="h5" fontWeight={800} sx={{ letterSpacing: 1 }}>
-            COMPANIA PRUEBA
+            {APP_TEXT.COMPANY_NAME}
           </Typography>
         </Box>
         <LoginForm initialUsername={session.rememberedUsername} onSubmit={handleSubmit} loading={loading} />

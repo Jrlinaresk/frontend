@@ -15,7 +15,12 @@ export const PasswordField = ({ ...props }) => {
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">
-            <IconButton onClick={() => setVisible((value) => !value)} edge="end" aria-label="toggle password visibility">
+            <IconButton
+              type="button"
+              onClick={() => setVisible((value) => !value)}
+              edge="end"
+              aria-label="toggle password visibility"
+            >
               {visible ? <VisibilityOff /> : <Visibility />}
             </IconButton>
           </InputAdornment>

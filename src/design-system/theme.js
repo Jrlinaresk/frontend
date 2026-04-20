@@ -81,14 +81,36 @@ export const theme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
-          borderRadius: RADIUS.pill,
+          borderRadius: RADIUS.sm,
           paddingInline: '1.1rem',
+        },
+      },
+    },
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: RADIUS.sm,
+        },
+      },
+    },
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          borderRadius: RADIUS.sm,
+        },
+      },
+    },
+    MuiAppBar: {
+      styleOverrides: {
+        root: {
+          borderRadius: 0,
         },
       },
     },
     MuiPaper: {
       styleOverrides: {
         root: {
+          borderRadius: RADIUS.sm,
           backgroundImage: 'none',
         },
       },

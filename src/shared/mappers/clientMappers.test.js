@@ -1,7 +1,6 @@
 import {
   buildClientDetails,
   buildCreateClientPayload,
-  buildUpdateClientPayload,
   normalizeClientListResponse,
 } from './clientMappers';
 
