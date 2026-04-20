@@ -12,7 +12,9 @@ coverage
 .cache
 .eslintcache
 .parcel-cache
-node_modules/.cache
+**/.eslintcache
+node_modules/.cache/
+node_modules/**/.cache/
 
 # environment variables
 .env
