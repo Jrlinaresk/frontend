@@ -6,15 +6,17 @@ import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 
 import { APP_ROUTES } from '../../shared/enums/routes';
+import { APP_TEXT } from '../../shared/constants/messages';
 import { COLORS } from '../tokens/colors';
 import { LAYOUT_CONSTANTS } from '../../shared/constants/layout';
 
 const navItems = [
-  { label: 'Inicio', to: APP_ROUTES.HOME, icon: <HomeIcon fontSize="small" /> },
-  { label: 'Consulta Clientes', to: APP_ROUTES.CLIENTS, icon: <PeopleIcon fontSize="small" /> },
+  { label: APP_TEXT.HOME_TITLE, to: APP_ROUTES.HOME, icon: <HomeIcon fontSize="small" /> },
+  { label: APP_TEXT.CLIENTS_TITLE, to: APP_ROUTES.CLIENTS, icon: <PeopleIcon fontSize="small" /> },
 ];
 
 export const Sidebar = ({ open, onClose, username, variant = 'permanent' }) => {
+  const avatarInitial = username?.trim()?.charAt(0)?.toUpperCase() || 'U';
   const drawerOffsetSx = {
     top: `${LAYOUT_CONSTANTS.TOPBAR_HEIGHT}px`,
     height: `calc(100% - ${LAYOUT_CONSTANTS.TOPBAR_HEIGHT}px)`,
@@ -24,7 +26,9 @@ export const Sidebar = ({ open, onClose, username, variant = 'permanent' }) => {
     <Box sx={{ height: '100%', bgcolor: COLORS.neutral[50] }}>
       <Box sx={{ py: 4, px: 3, textAlign: 'center' }}>
         <Stack alignItems="center" spacing={2}>
-          <Avatar sx={{ width: 104, height: 104, bgcolor: COLORS.neutral[800], fontSize: 54 }}>U</Avatar>
+          <Avatar sx={{ width: 104, height: 104, bgcolor: COLORS.neutral[800], fontSize: 54 }}>
+            {avatarInitial}
+          </Avatar>
           <Typography variant="h6" fontWeight={700}>
             {username}
           </Typography>
@@ -37,7 +41,7 @@ export const Sidebar = ({ open, onClose, username, variant = 'permanent' }) => {
           fontWeight={800}
           sx={{ letterSpacing: 1, textAlign: 'center', width: '100%' }}
         >
-          MENÚ
+          {APP_TEXT.MENU}
         </Typography>
       </Box>
       <List sx={{ px: 1 }}>

@@ -1,5 +1,5 @@
 export const APP_TEXT = Object.freeze({
-  COMPANY_NAME: 'COMPANIA PRUEBA',
+  COMPANY_NAME: 'CLASS',
   APP_NAME: 'Frontend Prueba Técnica',
   SIGN_IN: 'Iniciar sesión',
   SIGN_UP: 'Registrarme',
@@ -26,6 +26,7 @@ export const APP_TEXT = Object.freeze({
   LOGOUT: 'Cerrar sesión',
   REMEMBER_ME: 'Recuérdame',
   NO_ACCOUNT: '¿No tiene una cuenta? Regístrese',
+  MENU: 'MENÚ',
 });
 
 export const PAGE_HINTS = Object.freeze({

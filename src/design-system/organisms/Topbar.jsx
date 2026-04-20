@@ -5,6 +5,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import PropTypes from 'prop-types';
 
+import { APP_TEXT } from '../../shared/constants/messages';
 import { COLORS } from '../tokens/colors';
 import { LAYOUT_CONSTANTS } from '../../shared/constants/layout';
 
@@ -20,12 +21,18 @@ export const Topbar = ({ username, isDrawerOpen, onMenuClick, onLogout }) => (
     }}
   >
     <Toolbar sx={{ minHeight: LAYOUT_CONSTANTS.TOPBAR_HEIGHT, px: { xs: 1.5, sm: 2.5 } }}>
-      <IconButton color="inherit" edge="start" onClick={onMenuClick} sx={{ mr: 1, display: { md: 'none' } }}>
+      <IconButton
+        color="inherit"
+        edge="start"
+        onClick={onMenuClick}
+        aria-label={isDrawerOpen ? 'Cerrar menú' : 'Abrir menú'}
+        sx={{ mr: 1, display: { md: 'none' } }}
+      >
         {isDrawerOpen ? <CloseIcon /> : <MenuIcon />}
       </IconButton>
       <Box sx={{ flexGrow: 1 }}>
         <Typography variant="h6" fontWeight={700} sx={{ letterSpacing: 0.4 }}>
-          COMPANIA PRUEBA
+          {APP_TEXT.COMPANY_NAME}
         </Typography>
       </Box>
       <Typography variant="body1" fontWeight={600} sx={{ mr: 1.5, display: { xs: 'none', sm: 'block' } }}>

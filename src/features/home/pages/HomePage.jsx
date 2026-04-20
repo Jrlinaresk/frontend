@@ -35,7 +35,7 @@ export const HomePage = () => {
             </Typography>
             <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ pt: 2 }}>
               <AppButton size="large" onClick={() => navigate(APP_ROUTES.CLIENTS)}>
-                Consulta de clientes
+                {APP_TEXT.CLIENTS_TITLE}
               </AppButton>
               <AppButton variant="outlined" size="large" onClick={session.logout}>
                 Cerrar sesión

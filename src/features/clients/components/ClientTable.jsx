@@ -36,10 +36,18 @@ export const ClientTable = ({ rows, onEdit, onDelete, pagination }) => {
                 <TableCell>{row.identification}</TableCell>
                 <TableCell>{row.fullName}</TableCell>
                 <TableCell align="right">
-                  <IconButton onClick={() => onEdit(row)} color="primary" aria-label="edit">
+                  <IconButton
+                    onClick={() => onEdit(row)}
+                    color="primary"
+                    aria-label={`Editar cliente ${row.fullName}`}
+                  >
                     <EditIcon />
                   </IconButton>
-                  <IconButton onClick={() => onDelete(row)} color="error" aria-label="delete">
+                  <IconButton
+                    onClick={() => onDelete(row)}
+                    color="error"
+                    aria-label={`Eliminar cliente ${row.fullName}`}
+                  >
                     <DeleteIcon />
                   </IconButton>
                 </TableCell>

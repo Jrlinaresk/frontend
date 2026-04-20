@@ -18,6 +18,7 @@ import { validateClientForm } from '../../../shared/validators/clientValidators'
 import { createClient, getClientById, getInterests, updateClient } from '../services/clientService';
 import { normalizeApiError } from '../../../core/api/errorNormalizer';
 import { fileToBase64 } from '../../../shared/utils/file';
+import { buildClientDetails } from '../../../shared/mappers/clientMappers';
 
 const emptyValues = {
   id: '',
@@ -35,6 +36,15 @@ const emptyValues = {
   imagePreview: '',
   imageFile: null,
   interestId: '',
+};
+
+const normalizeFormValues = (source = {}) => {
+  const normalized = buildClientDetails(source);
+  return {
+    ...emptyValues,
+    ...normalized,
+    imagePreview: normalized.imageBase64 ? `data:image/*;base64,${normalized.imageBase64}` : '',
+  };
 };
 
 export const ClientMaintenancePage = () => {
@@ -76,12 +86,7 @@ export const ClientMaintenancePage = () => {
         if (!active) return;
         setInterests(interestList);
         if (isEditMode) {
-          const source = clientDetails || location.state || {};
-          setValues({
-            ...emptyValues,
-            ...source,
-            imagePreview: source.imageBase64 ? `data:image/*;base64,${source.imageBase64}` : '',
-          });
+          setValues(normalizeFormValues(clientDetails || location.state || {}));
         }
       } catch (apiError) {
         if (!active) return;
@@ -108,13 +113,17 @@ export const ClientMaintenancePage = () => {
         return;
       }
 
-      const imageBase64 = await fileToBase64(value);
-      setValues((current) => ({
-        ...current,
-        imageFile: value,
-        imageBase64,
-        imagePreview: `data:${value.type};base64,${imageBase64}`,
-      }));
+      try {
+        const imageBase64 = await fileToBase64(value);
+        setValues((current) => ({
+          ...current,
+          imageFile: value,
+          imageBase64,
+          imagePreview: `data:${value.type};base64,${imageBase64}`,
+        }));
+      } catch (error) {
+        feedback.showError(normalizeApiError(error));
+      }
       return;
     }
 

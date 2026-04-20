@@ -43,14 +43,14 @@ export const ClientsPage = () => {
   } = useClientsPagination(rows);
 
   const fetchClients = useCallback(async (nextFilters = initialFilters, options = {}) => {
+    if (options.resetPage) {
+      resetPage();
+    }
     setLoading(true);
     setError('');
     try {
       const result = await searchClients(nextFilters, session.userId);
       setRows(result);
-      if (options.resetPage) {
-        resetPage();
-      }
     } catch (apiError) {
       setError(normalizeApiError(apiError));
       setRows([]);
