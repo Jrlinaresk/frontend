@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, IconButton, Paper, Table, TableBody, TableCell, TableHead, TablePagination, TableRow } from '@mui/material';
+import { Box, IconButton, Paper, Table, TableBody, TableCell, TableHead, TablePagination, TableRow, Typography } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import PropTypes from 'prop-types';
@@ -48,6 +48,18 @@ export const ClientTable = ({ rows, onEdit, onDelete, pagination }) => {
           </TableBody>
         </Table>
       </Box>
+      {pagination ? (
+        <Box sx={{ px: 2, pt: 1.5 }}>
+          <Typography variant="body2" color="text.secondary">
+            {pagination.totalRows > 0
+              ? `Mostrando ${pagination.page * pagination.rowsPerPage + 1} a ${Math.min(
+                  (pagination.page + 1) * pagination.rowsPerPage,
+                  pagination.totalRows
+                )} de ${pagination.totalRows} clientes`
+              : 'No hay registros para mostrar'}
+          </Typography>
+        </Box>
+      ) : null}
       {pagination ? (
         <TablePagination
           component="div"
