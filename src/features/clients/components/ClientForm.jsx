@@ -2,10 +2,8 @@ import React from 'react';
 import { Box, FormControl, FormHelperText, Grid, InputLabel, MenuItem, Paper, Select, Stack, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 
-import { AppButton } from '../../../design-system/atoms/AppButton';
 import { AppTextField } from '../../../design-system/atoms/AppTextField';
 import { AppSelect } from '../../../design-system/atoms/AppSelect';
-import { APP_TEXT } from '../../../shared/constants/messages';
 import { GENDER_OPTIONS } from '../../../shared/enums/genders';
 
 const MAX_LENGTHS = {
@@ -18,10 +16,10 @@ const MAX_LENGTHS = {
   reseña: 200,
 };
 
-export const ClientForm = ({ values, errors, interests, loadingInterests, onChange, onSubmit, onBack, saving }) => {
+export const ClientForm = ({ formId, values, errors, interests, loadingInterests, onChange, onSubmit }) => {
   return (
     <Paper variant="outlined" sx={{ p: { xs: 2.5, sm: 3.5 } }}>
-      <Stack spacing={3} component="form" onSubmit={onSubmit}>
+      <Stack spacing={3} component="form" id={formId} onSubmit={onSubmit}>
         <Grid container spacing={2.5}>
           <Grid item xs={12} sm={4}>
             <AppTextField
@@ -177,26 +175,17 @@ export const ClientForm = ({ values, errors, interests, loadingInterests, onChan
             </Box>
           </Grid>
         </Grid>
-        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} justifyContent="flex-end">
-          <AppButton variant="outlined" onClick={onBack} type="button">
-            {APP_TEXT.BACK}
-          </AppButton>
-          <AppButton type="submit" disabled={saving}>
-            {APP_TEXT.SAVE}
-          </AppButton>
-        </Stack>
       </Stack>
     </Paper>
   );
 };
 
 ClientForm.propTypes = {
+  formId: PropTypes.string.isRequired,
   values: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
   interests: PropTypes.array.isRequired,
   loadingInterests: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
-  onBack: PropTypes.func.isRequired,
-  saving: PropTypes.bool,
 };

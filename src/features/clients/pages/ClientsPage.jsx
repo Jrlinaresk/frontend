@@ -1,5 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Alert, Card, CardContent, Stack } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useNavigate } from 'react-router-dom';
 
 import { DashboardLayout } from '../../../design-system/templates/DashboardLayout';
@@ -87,8 +89,10 @@ export const ClientsPage = () => {
         subtitle={PAGE_HINTS.CLIENTS}
         actions={
           <Stack direction="row" spacing={1.5}>
-            <AppButton onClick={() => navigate(APP_ROUTES.CLIENT_CREATE)}>{APP_TEXT.ADD}</AppButton>
-            <AppButton variant="outlined" onClick={() => navigate(APP_ROUTES.HOME)}>
+            <AppButton startIcon={<AddIcon />} onClick={() => navigate(APP_ROUTES.CLIENT_CREATE)}>
+              {APP_TEXT.ADD}
+            </AppButton>
+            <AppButton variant="outlined" startIcon={<ArrowBackIcon />} onClick={() => navigate(APP_ROUTES.HOME)}>
               {APP_TEXT.BACK}
             </AppButton>
           </Stack>

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Alert, Stack } from '@mui/material';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import SaveIcon from '@mui/icons-material/Save';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import { DashboardLayout } from '../../../design-system/templates/DashboardLayout';
@@ -144,7 +146,21 @@ export const ClientMaintenancePage = () => {
         subtitle={PAGE_HINTS.CLIENTS_MAINTENANCE}
         actions={
           <Stack direction="row" spacing={1.5}>
-            <AppButton onClick={() => navigate(APP_ROUTES.CLIENTS)}>{APP_TEXT.BACK}</AppButton>
+            <AppButton
+              type="submit"
+              form="client-maintenance-form"
+              startIcon={<SaveIcon />}
+              disabled={saving}
+            >
+              {APP_TEXT.SAVE}
+            </AppButton>
+            <AppButton
+              variant="outlined"
+              startIcon={<ArrowBackIcon />}
+              onClick={() => navigate(APP_ROUTES.CLIENTS)}
+            >
+              {APP_TEXT.BACK}
+            </AppButton>
           </Stack>
         }
       />
@@ -153,14 +169,13 @@ export const ClientMaintenancePage = () => {
       {!loading && pageError ? <Alert severity="error">{pageError}</Alert> : null}
       {!loading && !pageError ? (
         <ClientForm
+          formId="client-maintenance-form"
           values={values}
           errors={errors}
           interests={interests}
           loadingInterests={loadingInterests}
           onChange={handleChange}
           onSubmit={handleSubmit}
-          onBack={() => navigate(APP_ROUTES.CLIENTS)}
-          saving={saving}
         />
       ) : null}
     </DashboardLayout>
