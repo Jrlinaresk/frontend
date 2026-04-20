@@ -32,7 +32,11 @@ export const Sidebar = ({ open, onClose, username, variant = 'permanent' }) => {
       </Box>
       <Divider />
       <Box sx={{ px: 3, py: 2 }}>
-        <Typography variant="subtitle1" fontWeight={800} sx={{ letterSpacing: 1 }}>
+        <Typography
+          variant="subtitle1"
+          fontWeight={800}
+          sx={{ letterSpacing: 1, textAlign: 'center', width: '100%' }}
+        >
           MENÚ
         </Typography>
       </Box>
