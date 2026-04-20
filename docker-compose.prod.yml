@@ -1,0 +1,28 @@
+services:
+  frontend:
+    container_name: excalapp-frontend-pruebas-tecnicas
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        REACT_APP_API_BASE_URL: ${REACT_APP_API_BASE_URL:-https://pruebareactjs.test-class.com/Api}
+    image: excalapp/frontend-pruebas-tecnicas:main
+    restart: unless-stopped
+    ports:
+      - "${APP_PORT:-8088}:80"
+    networks:
+      - excalapp-prod
+
+  tunnel:
+    container_name: excalapp-frontend-tunnel
+    image: cloudflare/cloudflared:latest
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run --token ${CLOUDFLARE_TUNNEL_TOKEN}
+    depends_on:
+      - frontend
+    networks:
+      - excalapp-prod
+
+networks:
+  excalapp-prod:
+    name: excalapp-prod
