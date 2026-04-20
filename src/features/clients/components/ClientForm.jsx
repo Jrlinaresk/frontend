@@ -157,7 +157,7 @@ export const ClientForm = ({ values, errors, interests, loadingInterests, onChan
               sx={{
                 border: '1px dashed',
                 borderColor: 'divider',
-                borderRadius: 2,
+                borderRadius: 1,
                 p: 2,
                 bgcolor: 'background.default',
               }}
@@ -171,7 +171,7 @@ export const ClientForm = ({ values, errors, interests, loadingInterests, onChan
                   component="img"
                   src={values.imagePreview}
                   alt="Preview"
-                  sx={{ display: 'block', mt: 2, width: 120, height: 120, objectFit: 'cover', borderRadius: 2 }}
+                  sx={{ display: 'block', mt: 2, width: 120, height: 120, objectFit: 'cover', borderRadius: 1 }}
                 />
               ) : null}
             </Box>

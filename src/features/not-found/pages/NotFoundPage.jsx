@@ -11,7 +11,7 @@ import { APP_ROUTES } from '../../../shared/enums/routes';
 const Content = () => {
   const navigate = useNavigate();
   return (
-    <Card sx={{ maxWidth: 700, mx: 'auto', mt: 8, borderRadius: 4 }}>
+    <Card sx={{ maxWidth: 700, mx: 'auto', mt: 8 }}>
       <CardContent sx={{ p: { xs: 4, sm: 6 }, textAlign: 'center' }}>
         <Stack spacing={2} alignItems="center">
           <Typography variant="h1" fontWeight={800} color="primary">

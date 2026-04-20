@@ -44,7 +44,7 @@ export const Sidebar = ({ open, onClose, username, variant = 'permanent' }) => {
             to={item.to}
             onClick={onClose}
             sx={{
-              borderRadius: 2,
+              borderRadius: 1,
               mx: 1,
               '&.active': {
                 bgcolor: COLORS.primary[50],

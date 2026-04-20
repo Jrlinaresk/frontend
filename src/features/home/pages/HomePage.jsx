@@ -21,7 +21,7 @@ export const HomePage = () => {
           placeItems: 'center',
         }}
       >
-        <Card sx={{ width: '100%', maxWidth: 780, borderRadius: 4 }}>
+        <Card sx={{ width: '100%', maxWidth: 780 }}>
           <CardContent sx={{ p: { xs: 4, sm: 6 }, textAlign: 'center' }}>
             <Stack spacing={2} alignItems="center">
               <Typography variant="overline" color="primary" fontWeight={800} letterSpacing={3}>

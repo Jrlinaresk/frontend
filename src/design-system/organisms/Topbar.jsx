@@ -16,6 +16,7 @@ export const Topbar = ({ username, isDrawerOpen, onMenuClick, onLogout }) => (
       zIndex: (theme) => theme.zIndex.drawer + 1,
       bgcolor: COLORS.primary[900],
       borderBottom: `4px solid ${COLORS.primary[400]}`,
+      borderRadius: 0,
     }}
   >
     <Toolbar sx={{ minHeight: LAYOUT_CONSTANTS.TOPBAR_HEIGHT, px: { xs: 1.5, sm: 2.5 } }}>
