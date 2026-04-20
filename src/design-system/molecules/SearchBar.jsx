@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid } from '@mui/material';
+import { Grid, Stack } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import PropTypes from 'prop-types';
 
@@ -28,11 +28,19 @@ export const SearchBar = ({ identification, name, onChange, onSearch, errors }) 
     </Grid>
     <Grid item xs={12} md={2} sx={{ display: 'flex', justifyContent: { xs: 'stretch', md: 'flex-start' } }}>
       <AppButton
+        fullWidth
+        type="button"
         onClick={onSearch}
-        startIcon={<SearchIcon />}
-        sx={{ minWidth: { xs: '100%', md: 120 }, height: 56 }}
+        sx={{
+          minWidth: { md: 120 },
+          height: 56,
+          px: 2.25,
+        }}
       >
-        Buscar
+        <Stack direction="row" spacing={1} alignItems="center" justifyContent="center">
+          <SearchIcon fontSize="small" />
+          <span>Buscar</span>
+        </Stack>
       </AppButton>
     </Grid>
   </Grid>
