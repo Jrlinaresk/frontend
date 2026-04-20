@@ -97,7 +97,14 @@ export const ClientsPage = () => {
 
       <Stack spacing={3}>
         <Card>
-          <CardContent sx={{ p: { xs: 1.5, sm: 2 }, pb: { xs: 1, sm: 1.25 } }}>
+          <CardContent
+            sx={{
+              p: 1,
+              '&:last-child': {
+                p: 1,
+              },
+            }}
+          >
             <SearchBar
               identification={filters.identification}
               name={filters.name}
