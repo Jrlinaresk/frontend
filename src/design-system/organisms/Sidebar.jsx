@@ -69,6 +69,12 @@ export const Sidebar = ({ open, onClose, username, variant = 'permanent' }) => {
           boxSizing: 'border-box',
           borderRight: `1px solid ${COLORS.border}`,
           bgcolor: COLORS.neutral[50],
+          ...(variant === 'permanent'
+            ? {
+                top: `${LAYOUT_CONSTANTS.TOPBAR_HEIGHT}px`,
+                height: `calc(100% - ${LAYOUT_CONSTANTS.TOPBAR_HEIGHT}px)`,
+              }
+            : {}),
         },
       }}
     >
