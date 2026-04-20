@@ -2,12 +2,13 @@ import React from 'react';
 import { AppBar, Box, IconButton, Toolbar, Typography } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
 import PropTypes from 'prop-types';
 
 import { COLORS } from '../tokens/colors';
 import { LAYOUT_CONSTANTS } from '../../shared/constants/layout';
 
-export const Topbar = ({ username, onMenuClick, onLogout }) => (
+export const Topbar = ({ username, isDrawerOpen, onMenuClick, onLogout }) => (
   <AppBar
     position="fixed"
     elevation={0}
@@ -19,7 +20,7 @@ export const Topbar = ({ username, onMenuClick, onLogout }) => (
   >
     <Toolbar sx={{ minHeight: LAYOUT_CONSTANTS.TOPBAR_HEIGHT, px: { xs: 1.5, sm: 2.5 } }}>
       <IconButton color="inherit" edge="start" onClick={onMenuClick} sx={{ mr: 1, display: { md: 'none' } }}>
-        <MenuIcon />
+        {isDrawerOpen ? <CloseIcon /> : <MenuIcon />}
       </IconButton>
       <Box sx={{ flexGrow: 1 }}>
         <Typography variant="h6" fontWeight={700} sx={{ letterSpacing: 0.4 }}>
@@ -38,6 +39,7 @@ export const Topbar = ({ username, onMenuClick, onLogout }) => (
 
 Topbar.propTypes = {
   username: PropTypes.string.isRequired,
+  isDrawerOpen: PropTypes.bool,
   onMenuClick: PropTypes.func.isRequired,
   onLogout: PropTypes.func.isRequired,
 };

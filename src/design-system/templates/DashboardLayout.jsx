@@ -10,6 +10,10 @@ import { Topbar } from '../organisms/Topbar';
 export const DashboardLayout = ({ username, onLogout, children }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
+  const toggleMobileDrawer = () => {
+    setMobileOpen((current) => !current);
+  };
+
   return (
     <Box
       sx={{
@@ -19,7 +23,7 @@ export const DashboardLayout = ({ username, onLogout, children }) => {
         pt: { xs: `${LAYOUT_CONSTANTS.TOPBAR_HEIGHT}px`, md: `${LAYOUT_CONSTANTS.TOPBAR_HEIGHT}px` },
       }}
     >
-      <Topbar username={username} onMenuClick={() => setMobileOpen(true)} onLogout={onLogout} />
+      <Topbar username={username} isDrawerOpen={mobileOpen} onMenuClick={toggleMobileDrawer} onLogout={onLogout} />
       <Sidebar open={mobileOpen} onClose={() => setMobileOpen(false)} username={username} variant="temporary" />
       <Box sx={{ display: { xs: 'none', md: 'block' } }}>
         <Sidebar open username={username} onClose={() => {}} variant="permanent" />
