@@ -9,6 +9,7 @@ import { AppLoader } from '../../../design-system/atoms/AppLoader';
 import { AppButton } from '../../../design-system/atoms/AppButton';
 import { ClientDeleteDialog } from '../components/ClientDeleteDialog';
 import { ClientTable } from '../components/ClientTable';
+import { useClientsPagination } from '../hooks/useClientsPagination';
 import { useSession } from '../../../core/session/SessionContext';
 import { useFeedback } from '../../../core/feedback/FeedbackContext';
 import { APP_TEXT, PAGE_HINTS } from '../../../shared/constants/messages';
@@ -29,30 +30,42 @@ export const ClientsPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [deleteTarget, setDeleteTarget] = useState(null);
+  const {
+    page,
+    rowsPerPage,
+    paginatedRows,
+    totalRows,
+    handlePageChange,
+    handleRowsPerPageChange,
+    resetPage,
+  } = useClientsPagination(rows);
 
-  const fetchClients = useCallback(async (nextFilters = initialFilters) => {
+  const fetchClients = useCallback(async (nextFilters = initialFilters, options = {}) => {
     setLoading(true);
     setError('');
     try {
       const result = await searchClients(nextFilters, session.userId);
       setRows(result);
+      if (options.resetPage) {
+        resetPage();
+      }
     } catch (apiError) {
       setError(normalizeApiError(apiError));
       setRows([]);
     } finally {
       setLoading(false);
     }
-  }, [session.userId]);
+  }, [resetPage, session.userId]);
 
   useEffect(() => {
-    if (session.userId) fetchClients(initialFilters);
+    if (session.userId) fetchClients(initialFilters, { resetPage: true });
   }, [fetchClients, session.userId]);
 
   const handleSearch = async () => {
     const nextErrors = validateClientFilters(filters);
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) return;
-    await fetchClients(filters);
+    await fetchClients(filters, { resetPage: true });
   };
 
   const handleDelete = async () => {
@@ -61,7 +74,7 @@ export const ClientsPage = () => {
       await deleteClient(deleteTarget.id);
       feedback.showSuccess('Cliente eliminado correctamente.');
       setDeleteTarget(null);
-      await fetchClients(filters);
+      await fetchClients(filters, { resetPage: false });
     } catch (apiError) {
       feedback.showError(normalizeApiError(apiError));
     }
@@ -97,7 +110,24 @@ export const ClientsPage = () => {
 
         {loading ? <AppLoader /> : null}
         {!loading && error ? <Alert severity="error">{error}</Alert> : null}
-        {!loading && !error ? <ClientTable rows={rows} onEdit={(row) => navigate(APP_ROUTES.CLIENT_EDIT.replace(':id', row.id), { state: row })} onDelete={(row) => setDeleteTarget(row)} /> : null}
+        {!loading && !error ? (
+          <ClientTable
+            rows={paginatedRows}
+            pagination={
+              rows.length
+                ? {
+                    page,
+                    rowsPerPage,
+                    totalRows,
+                    onPageChange: handlePageChange,
+                    onRowsPerPageChange: handleRowsPerPageChange,
+                  }
+                : null
+            }
+            onEdit={(row) => navigate(APP_ROUTES.CLIENT_EDIT.replace(':id', row.id), { state: row })}
+            onDelete={(row) => setDeleteTarget(row)}
+          />
+        ) : null}
       </Stack>
 
       <ClientDeleteDialog

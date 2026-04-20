@@ -1,13 +1,14 @@
 import React from 'react';
-import { Box, IconButton, Paper, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
+import { Box, IconButton, Paper, Table, TableBody, TableCell, TableHead, TablePagination, TableRow } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import PropTypes from 'prop-types';
 
 import { AppEmptyState } from '../../../design-system/atoms/AppEmptyState';
 import { APP_TEXT } from '../../../shared/constants/messages';
+import { PAGINATION } from '../../../shared/constants/pagination';
 
-export const ClientTable = ({ rows, onEdit, onDelete }) => {
+export const ClientTable = ({ rows, onEdit, onDelete, pagination }) => {
   if (!rows.length) {
     return (
       <Paper variant="outlined" sx={{ p: 4 }}>
@@ -47,6 +48,18 @@ export const ClientTable = ({ rows, onEdit, onDelete }) => {
           </TableBody>
         </Table>
       </Box>
+      {pagination ? (
+        <TablePagination
+          component="div"
+          count={pagination.totalRows}
+          page={pagination.page}
+          onPageChange={pagination.onPageChange}
+          rowsPerPage={pagination.rowsPerPage}
+          onRowsPerPageChange={pagination.onRowsPerPageChange}
+          rowsPerPageOptions={PAGINATION.PAGE_SIZE_OPTIONS}
+          labelRowsPerPage="Filas por página"
+        />
+      ) : null}
     </Paper>
   );
 };
@@ -55,4 +68,11 @@ ClientTable.propTypes = {
   rows: PropTypes.array.isRequired,
   onEdit: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
+  pagination: PropTypes.shape({
+    page: PropTypes.number.isRequired,
+    rowsPerPage: PropTypes.number.isRequired,
+    totalRows: PropTypes.number.isRequired,
+    onPageChange: PropTypes.func.isRequired,
+    onRowsPerPageChange: PropTypes.func.isRequired,
+  }),
 };
