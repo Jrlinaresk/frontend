@@ -3,7 +3,7 @@ import axios from 'axios';
 import { getStoredSession } from '../session/sessionStorage';
 import { normalizeApiError } from './errorNormalizer';
 
-const baseURL = process.env.REACT_APP_API_BASE_URL || 'http://209.105.239/PruebaReactJs/Api';
+const baseURL = process.env.REACT_APP_API_BASE_URL || 'https://pruebareactjs.test-class.com/Api';
 
 export const httpClient = axios.create({
   baseURL,

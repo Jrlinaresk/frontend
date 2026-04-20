@@ -27,7 +27,7 @@ La URL base se centraliza con `REACT_APP_API_BASE_URL`.
 Por defecto apunta a:
 
 ```bash
-http://209.105.239/PruebaReactJs/Api
+https://pruebareactjs.test-class.com/Api
 ```
 
 ## Decisiones
