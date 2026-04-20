@@ -1,0 +1,5 @@
+export const LAYOUT_CONSTANTS = Object.freeze({
+  DRAWER_WIDTH: 290,
+  TOPBAR_HEIGHT: 64,
+  CONTENT_MAX_WIDTH: 1360,
+});
