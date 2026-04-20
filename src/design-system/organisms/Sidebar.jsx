@@ -15,6 +15,11 @@ const navItems = [
 ];
 
 export const Sidebar = ({ open, onClose, username, variant = 'permanent' }) => {
+  const drawerOffsetSx = {
+    top: `${LAYOUT_CONSTANTS.TOPBAR_HEIGHT}px`,
+    height: `calc(100% - ${LAYOUT_CONSTANTS.TOPBAR_HEIGHT}px)`,
+  };
+
   const content = (
     <Box sx={{ height: '100%', bgcolor: COLORS.neutral[50] }}>
       <Box sx={{ py: 4, px: 3, textAlign: 'center' }}>
@@ -64,17 +69,17 @@ export const Sidebar = ({ open, onClose, username, variant = 'permanent' }) => {
       ModalProps={{ keepMounted: true }}
       sx={{
         display: { xs: variant === 'temporary' ? 'block' : 'none', md: 'block' },
+        ...(variant === 'temporary'
+          ? {
+              zIndex: (theme) => theme.zIndex.appBar - 1,
+            }
+          : {}),
         '& .MuiDrawer-paper': {
           width: LAYOUT_CONSTANTS.DRAWER_WIDTH,
           boxSizing: 'border-box',
           borderRight: `1px solid ${COLORS.border}`,
           bgcolor: COLORS.neutral[50],
-          ...(variant === 'permanent'
-            ? {
-                top: `${LAYOUT_CONSTANTS.TOPBAR_HEIGHT}px`,
-                height: `calc(100% - ${LAYOUT_CONSTANTS.TOPBAR_HEIGHT}px)`,
-              }
-            : {}),
+          ...drawerOffsetSx,
         },
       }}
     >
